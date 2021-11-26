@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/globals.css'
 import Layout from '../components/Layout'
+import 'animate.css'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'

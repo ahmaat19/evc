@@ -10,7 +10,7 @@ export default function Layout({ children }) {
         <link rel='icon' href='/logo.svg' />
       </Head>
       <Navigation />
-      <div className='container'>{children}</div>
+      <div className='container my-3'>{children}</div>
     </>
   )
 }

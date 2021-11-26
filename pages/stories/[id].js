@@ -1,0 +1,84 @@
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { storyDetail } from '../../utils/Stories'
+import {
+  FaTrash,
+  FaPencilAlt,
+  FaBookOpen,
+  FaArrowCircleLeft,
+} from 'react-icons/fa'
+import moment from 'moment'
+
+const StoryDetails = () => {
+  const router = useRouter()
+  const { id } = router.query
+  const story = storyDetail(id)
+
+  return (
+    <>
+      <Link href='/'>
+        <a>
+          <button className='btn btn-primary btn-sm rounded-pill shadow-lg animate__bounceIn'>
+            <FaArrowCircleLeft className='mb-1' /> Back
+          </button>
+        </a>
+      </Link>
+      <div className='row'>
+        <div className='col-lg-6 col-md-8 col-12 mx-auto'>
+          <div className='card border-0 shadow'>
+            <div className='position-relative'>
+              <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
+                <FaTrash className='mb-1' />
+              </button>
+              <Link href='/profile/stories'>
+                <a>
+                  <button
+                    className='btn btn-primary btn-sm rounded-pill position-absolute top-0 shadow-lg animate__bounceIn '
+                    style={{ right: '40px' }}
+                  >
+                    <FaPencilAlt className='mb-1' />
+                  </button>
+                </a>
+              </Link>
+            </div>
+            <FaBookOpen className='card-img-top display-1 text-muted' />
+            <div className='card-body text-center'>
+              <h5 className='card-title fw-light'>{story && story.title}</h5>
+
+              {story &&
+                story.tag.map((tag) => (
+                  <div
+                    key={tag}
+                    className='badge bg-light text-secondary fw-light rounded-0 shadow-lg m-1'
+                  >
+                    #{tag}
+                  </div>
+                ))}
+
+              <div className='card-text text-muted fw-light mt-2'>
+                <span> Published by: {story && story.author}</span>
+                <span>
+                  {' '}
+                  Since:{' '}
+                  {story &&
+                    moment(story.publishedDate).startOf('hour').fromNow()}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className='card border-0 shadow mt-3'>
+            <div className='card-body'>
+              <div className='card-text'>
+                <p> {story && story.description} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default StoryDetails

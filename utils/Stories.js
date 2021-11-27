@@ -7,7 +7,7 @@ export const stories = [
     type: 'public',
     tag: ['javascript'],
     author: 'Ahmed',
-    publishedDate: '2021-11-21 23:00',
+    publishedDate: new Date('2021-11-21'),
   },
   {
     _id: 2,
@@ -17,7 +17,7 @@ export const stories = [
     type: 'public',
     tag: ['django', 'python', 'flask'],
     author: 'Abdi',
-    publishedDate: '2021-11-22 10:23',
+    publishedDate: new Date('2021-11-27'),
   },
   {
     _id: 3,
@@ -27,7 +27,7 @@ export const stories = [
     type: 'public',
     tag: ['vscode', 'code editor', 'text editor', 'notepad'],
     author: 'Ahmed',
-    publishedDate: '2021-11-25 5:12',
+    publishedDate: new Date('2021-11-25'),
   },
 ]
 

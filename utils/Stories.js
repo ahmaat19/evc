@@ -8,6 +8,7 @@ export const stories = [
     tag: ['javascript'],
     author: 'Ahmed',
     publishedDate: new Date('2021-11-21'),
+    like: 43,
   },
   {
     _id: 2,
@@ -18,6 +19,7 @@ export const stories = [
     tag: ['django', 'python', 'flask'],
     author: 'Abdi',
     publishedDate: new Date('2021-11-27'),
+    like: 4,
   },
   {
     _id: 3,
@@ -28,6 +30,7 @@ export const stories = [
     tag: ['vscode', 'code editor', 'text editor', 'notepad'],
     author: 'Ahmed',
     publishedDate: new Date('2021-11-25'),
+    like: 9,
   },
 ]
 

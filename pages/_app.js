@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/globals.css'
 import Layout from '../components/Layout'
 import 'animate.css'
+// import { SessionProvider } from 'next-auth/react'
+import { Provider } from 'next-auth/client'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -17,10 +19,12 @@ function MyApp({ Component, pageProps }) {
   }, [])
   return (
     <QueryClientProvider client={queryClient}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+      <Provider session={pageProps.session}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+      </Provider>
     </QueryClientProvider>
   )
 }

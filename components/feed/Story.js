@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaBookOpen, FaPencilAlt, FaTrash } from 'react-icons/fa'
+import { FaBookOpen, FaPencilAlt, FaThumbsUp, FaTrash } from 'react-icons/fa'
 import Link from 'next/link'
 import moment from 'moment'
 
@@ -48,6 +48,14 @@ const Story = ({ story }) => {
               Since: {moment(story.publishedDate).startOf('hour').fromNow()}
             </span>
           </div>
+        </div>
+        <div className='position-relative'>
+          <button
+            className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
+            style={{ top: 0, right: '45%' }}
+          >
+            <FaThumbsUp className='mb-1' /> {story.like}
+          </button>
         </div>
       </div>
     </div>

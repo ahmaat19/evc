@@ -7,6 +7,7 @@ import {
   FaPencilAlt,
   FaBookOpen,
   FaArrowCircleLeft,
+  FaThumbsUp,
 } from 'react-icons/fa'
 import moment from 'moment'
 
@@ -65,10 +66,18 @@ const StoryDetails = () => {
                     moment(story.publishedDate).startOf('hour').fromNow()}
                 </span>
               </div>
+              <div className='position-relative'>
+                <button
+                  className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
+                  style={{ top: 0, right: '45%' }}
+                >
+                  <FaThumbsUp className='mb-1' /> {story && story.like}
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className='card border-0 shadow mt-3'>
+          <div className='card border-0 shadow mt-4'>
             <div className='card-body'>
               <div className='card-text'>
                 <p> {story && story.description} </p>

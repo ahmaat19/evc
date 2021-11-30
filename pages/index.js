@@ -15,7 +15,6 @@ export default function Home() {
       <main>
         <Stories stories={stories} />
       </main>
-
       <Link href='/profile/stories'>
         <a>
           <button

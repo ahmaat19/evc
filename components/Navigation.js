@@ -1,11 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import { signIn, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
-import { FaBookOpen, FaRss, FaSignInAlt, FaUserPlus } from 'react-icons/fa'
+import { FaBookOpen, FaRss, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
+import { useUser } from '@auth0/nextjs-auth0'
 
 const Navigation = () => {
-  const [session] = useSession()
+  const { user } = useUser()
   return (
     <nav className='navbar navbar-expand-sm navbar-light bg-light'>
       <div className='container'>
@@ -29,37 +29,30 @@ const Navigation = () => {
         <div className='collapse navbar-collapse' id='navbarNav'>
           <ul className='navbar-nav ms-auto'>
             <li className='nav-item'>
-              <span className='nav-link'>{session && session.user.email}</span>
-            </li>
-            <li className='nav-item'>
               <Link href='/'>
                 <a className='nav-link' aria-current='page'>
                   <FaRss className='mb-1' /> Feed
                 </a>
               </Link>
             </li>
+
             <li className='nav-item'>
-              <Link href='/signup'>
-                <a className='nav-link' aria-current='page'>
-                  <FaUserPlus className='mb-1' /> Signup
-                </a>
-              </Link>
-            </li>
-            <li className='nav-item'>
-              {!session ? (
-                <Link href='/login'>
-                  <a className='nav-link' aria-current='page'>
-                    <FaSignInAlt className='mb-1' /> Login
-                  </a>
-                </Link>
-              ) : (
-                <span
-                  onClick={signOut}
+              {user ? (
+                <a
+                  href='/api/auth/logout'
                   className='nav-link'
                   aria-current='page'
                 >
-                  <FaSignInAlt className='mb-1' /> Logout
-                </span>
+                  <FaSignOutAlt className='mb-1' /> LogOut
+                </a>
+              ) : (
+                <a
+                  href='/api/auth/login'
+                  className='nav-link'
+                  aria-current='page'
+                >
+                  <FaSignInAlt className='mb-1' /> LogIn
+                </a>
               )}
             </li>
           </ul>

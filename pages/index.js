@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FaPlus } from 'react-icons/fa'
 import Stories from '../components/feed/Stories'
 import { stories } from '../utils/Stories'
 
 export default function Home() {
+  const router = useRouter()
   return (
     <>
       <Head>
@@ -15,16 +17,16 @@ export default function Home() {
       <main>
         <Stories stories={stories} />
       </main>
-      <Link href='/profile/stories'>
-        <a>
-          <button
-            className='btn btn-success btn-sm rounded-pill position-fixed shadow-lg animate__bounceIn animate__lightSpeedInRight'
-            style={{ zIndex: 111, right: '30px', bottom: '30px' }}
-          >
-            <FaPlus className='mb-1' />
-          </button>
-        </a>
-      </Link>
+      {/* eslint-disable */}
+      <a href='/profile/stories'>
+        <button
+          className='btn btn-success btn-sm rounded-pill position-fixed shadow-lg animate__bounceIn animate__lightSpeedInRight'
+          style={{ zIndex: 111, right: '30px', bottom: '30px' }}
+        >
+          <FaPlus className='mb-1' />
+        </button>
+      </a>
+      {/* eslint-enable */}
     </>
   )
 }

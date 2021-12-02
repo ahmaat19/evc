@@ -10,16 +10,17 @@ const Story = ({ story }) => {
         <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
           <FaTrash className='mb-1' />
         </button>
-        <Link href='/profile/stories'>
-          <a>
-            <button
-              className='btn btn-primary btn-sm rounded-pill position-absolute top-0 shadow-lg animate__bounceIn '
-              style={{ right: '40px' }}
-            >
-              <FaPencilAlt className='mb-1' />
-            </button>
-          </a>
-        </Link>
+
+        {/* eslint-disable */}
+        <a href='/profile/stories'>
+          <button
+            className='btn btn-primary btn-sm rounded-pill position-absolute top-0 shadow-lg animate__bounceIn '
+            style={{ right: '40px' }}
+          >
+            <FaPencilAlt className='mb-1' />
+          </button>
+        </a>
+        {/* eslint-enable */}
       </div>
       <Link href={`/stories/${story._id}`}>
         <a>

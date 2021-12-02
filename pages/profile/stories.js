@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { FaTimesCircle } from 'react-icons/fa'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
 const stories = () => {
   return (
@@ -20,3 +21,5 @@ const stories = () => {
 }
 
 export default stories
+
+export const getServerSideProps = withPageAuthRequired()

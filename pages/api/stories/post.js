@@ -8,19 +8,21 @@ const handler = nc()
 export default withApiAuthRequired(
   handler.post(async (req, res) => {
     const session = getSession(req, res)
+
     await db()
     const { title, type, content } = req.body
     const tag = !Array.isArray(req.body.tag)
-      ? req.body.tag.split(',').trim()
-      : req.body.tag.trim()
+      ? req.body.tag.split(',')
+      : req.body.tag
 
     const create = await Stories.create({
       title,
       type,
       content,
       tag,
-      image: session.user.image,
-      user: session.user.email,
+      picture: session.user.picture,
+      email: session.user.email,
+      name: session.user.name,
     })
 
     if (create) {

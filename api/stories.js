@@ -1,14 +1,21 @@
 import dynamicAPI from './dynamicAPI'
 
-const url = '/api/exam'
+const url = '/api/stories'
 
-export const getExams = async (obj) =>
-  await dynamicAPI('get', `${url}/${obj.assignId}`, {})
+export const getStories = async () =>
+  await dynamicAPI('get', `${url}/get-all`, {})
 
-export const addExam = async (obj) => await dynamicAPI('post', url, obj)
+export const addStory = async (obj) =>
+  await dynamicAPI('post', `${url}/post`, obj)
 
-export const updateExam = async (obj) =>
-  await dynamicAPI('put', `${url}/${obj._id}`, obj)
+export const updateStory = async (obj) =>
+  await dynamicAPI('put', `${url}/update/${obj._id}`, obj)
 
-export const deleteExam = async (id) =>
-  await dynamicAPI('delete', `${url}/${id}`, {})
+export const deleteStory = async (id) =>
+  await dynamicAPI('delete', `${url}/delete/${id}`, {})
+
+export const getUserStories = async (obj) =>
+  await dynamicAPI('get', `${url}/user/${obj._id}`, {})
+
+export const getMyStories = async (obj) =>
+  await dynamicAPI('get', `${url}/profile/${obj._id}`, {})

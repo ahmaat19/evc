@@ -12,8 +12,8 @@ export default withApiAuthRequired(
 
     const { title, type, content } = req.body
     const tag = !Array.isArray(req.body.tag)
-      ? req.body.tag.split(',').trim()
-      : req.body.tag.trim()
+      ? req.body.tag.split(',')
+      : req.body.tag
 
     await db()
     const story = await Stories.findOne({ _id, user: session.user.email })
@@ -22,8 +22,9 @@ export default withApiAuthRequired(
       story.type = type
       story.content = content
       story.tag = tag
-      story.image = session.user.image
-      story.user = session.user.email
+      story.picture = session.user.picture
+      story.email = session.user.email
+      story.name = session.user.name
       await story.save()
       res.status(200).json({ status: 'success' })
     } else {

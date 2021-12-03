@@ -8,6 +8,7 @@ import {
   FaBookOpen,
   FaArrowCircleLeft,
   FaThumbsUp,
+  FaPlus,
 } from 'react-icons/fa'
 import moment from 'moment'
 
@@ -85,6 +86,16 @@ const StoryDetails = () => {
               </div>
             </div>
           </div>
+          {/* eslint-disable */}
+          <a href='/profile/stories'>
+            <button
+              className='btn btn-success btn-sm rounded-pill position-fixed shadow-lg animate__bounceIn animate__lightSpeedInRight'
+              style={{ zIndex: 111, right: '30px', bottom: '30px' }}
+            >
+              <FaPlus className='mb-1' />
+            </button>
+          </a>
+          {/* eslint-enable */}
         </div>
       </div>
     </>

@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { config } from '../utils/customLocalStorage'
+
+export const config = () => {
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+}
 
 const dynamicAPI = async (method, url, obj = {}) => {
   try {
@@ -22,15 +29,3 @@ const dynamicAPI = async (method, url, obj = {}) => {
 }
 
 export default dynamicAPI
-
-// export const config = () => {
-//     return {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization:
-//           customLocalStorage() &&
-//           customLocalStorage().userInfo &&
-//           `Bearer ${customLocalStorage().userInfo.token}`,
-//       },
-//     }
-//   }

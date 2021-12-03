@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import '../styles/globals.css'
 import Layout from '../components/Layout'
 import 'animate.css'

@@ -10,7 +10,7 @@ export default withApiAuthRequired(
     const session = getSession(req, res)
     await db()
     const stories = await Stories.find({
-      user: session.user.email,
+      email: session.user.email,
     })
     res.status(200).json(stories)
   })

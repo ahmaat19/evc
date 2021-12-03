@@ -7,8 +7,9 @@ const storyScheme = mongoose.Schema(
     tag: { type: [String], required: true },
     content: { type: String, required: true },
     like: { type: Number, default: 0 },
-    user: { type: String, required: true, unique: true },
-    image: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    picture: { type: String, required: true },
+    name: { type: String, required: true },
   },
   { timestamps: true }
 )

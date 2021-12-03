@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import { FaBookOpen, FaPencilAlt, FaThumbsUp, FaTrash } from 'react-icons/fa'
 import Link from 'next/link'
 import moment from 'moment'
@@ -42,11 +43,20 @@ const Story = ({ story }) => {
               #{tag}
             </div>
           ))}
-          <div className='card-text text-muted fw-light mt-2'>
-            <span> Published by: {story.author}</span>
+          <div className='card-text text-muted text-center fw-light mt-2'>
+            <hr />
+            <Image
+              src={story.picture}
+              alt={story.name}
+              width='30'
+              height='30'
+              className='rounded-pill'
+            />
+            <br />
+            {story.name} <br />
+            {story.email} <br />
             <span>
-              {' '}
-              Since: {moment(story.publishedDate).startOf('hour').fromNow()}
+              Since: {moment(story.createdAt).startOf('hour').fromNow()}
             </span>
           </div>
         </div>

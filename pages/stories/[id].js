@@ -12,10 +12,11 @@ import {
 } from 'react-icons/fa'
 import moment from 'moment'
 
-const StoryDetails = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const story = storyDetail(id)
+const StoryDetails = ({ story }) => {
+  // const router = useRouter()
+  // const { id } = router.query
+  // const story = storyDetail(id)
+  console.log(story)
 
   return (
     <>
@@ -103,3 +104,27 @@ const StoryDetails = () => {
 }
 
 export default StoryDetails
+
+// export const getStaticProps = async (context) => {
+//   const { data } = await axios.get(
+//     `http://localhost:3000/api/stories/${context.params.id}`
+//   )
+
+//   return {
+//     props: {
+//       story: data,
+//     },
+//   }
+// }
+
+// export const getStaticPaths = async () => {
+//   const { data } = await axios.get(
+//     `http://localhost:3000/api/stories/${context.params.id}`
+//   )
+//   // const paths = ids.map((id) => ({ params: { id: id.toString() } }))
+//   console.log(data)
+//   return {
+//     // paths,
+//     fallback: false,
+//   }
+// }

@@ -1,28 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
-import { FaBookOpen, FaPencilAlt, FaThumbsUp, FaTrash } from 'react-icons/fa'
+import { FaBookOpen, FaThumbsUp, FaTrash } from 'react-icons/fa'
 import Link from 'next/link'
 import moment from 'moment'
+import { useUser } from '@auth0/nextjs-auth0'
 
 const Story = ({ story }) => {
+  const { user } = useUser()
+
   return (
     <div className='card shadow border-0'>
-      <div className='position-relative'>
-        <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
-          <FaTrash className='mb-1' />
-        </button>
-
-        {/* eslint-disable */}
-        <a href='/profile/stories'>
-          <button
-            className='btn btn-primary btn-sm rounded-pill position-absolute top-0 shadow-lg animate__bounceIn '
-            style={{ right: '40px' }}
-          >
-            <FaPencilAlt className='mb-1' />
+      {user && story && user.email === story.email && (
+        <div className='position-relative'>
+          <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
+            <FaTrash className='mb-1' />
           </button>
-        </a>
-        {/* eslint-enable */}
-      </div>
+        </div>
+      )}
       <Link href={`/stories/${story._id}`}>
         <a>
           <FaBookOpen className='card-img-top display-1 text-muted' />
@@ -62,6 +56,7 @@ const Story = ({ story }) => {
         </div>
         <div className='position-relative'>
           <button
+            disabled={!!!user}
             className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
             style={{ top: 0, right: '45%' }}
           >

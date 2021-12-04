@@ -19,14 +19,6 @@ import {
 } from '../../api/stories'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { useForm } from 'react-hook-form'
-import {
-  dynamicInputSelect,
-  inputCheckBox,
-  inputNumber,
-  inputText,
-  inputTextArea,
-  staticInputSelect,
-} from '../../utils/dynamicForm'
 
 const Stories = () => {
   const {
@@ -169,42 +161,84 @@ const Stories = () => {
         <div className='row'>
           <div className='col-md-4 col-12'>
             <form onSubmit={handleSubmit(submitHandler)}>
-              {inputText({
-                register,
-                label: 'Title',
-                errors,
-                name: 'title',
-              })}
-              {inputText({
-                register,
-                label: 'Tag',
-                errors,
-                name: 'tag',
-              })}
-              {staticInputSelect({
-                register,
-                errors,
-                data: [{ name: 'public' }, { name: 'private' }],
-                name: 'type',
-                label: 'Type',
-              })}
-              {inputTextArea({
-                register,
-                errors,
-                label: 'Content',
-                name: 'content',
-              })}
-              <button
-                type='submit'
-                className='btn btn-primary form-control'
-                disabled={isLoadingAdd || isLoadingUpdate}
-              >
-                {isLoadingAdd || isLoadingUpdate ? (
-                  <span className='spinner-border spinner-border-sm' />
-                ) : (
-                  'Submit'
+              <div className='mb-3'>
+                <label htmlFor='title'>Title</label>
+                <input
+                  {...register('title', { required: `Title is required` })}
+                  type='text'
+                  placeholder={`Enter title`}
+                  className='form-control'
+                />
+                {errors && errors['title'] && (
+                  <span className='text-danger'>{errors['title'].message}</span>
                 )}
-              </button>
+              </div>
+
+              <div className='mb-3'>
+                <label htmlFor='tag'>Tag</label>
+                <input
+                  {...register('tag', { required: `Tag is required` })}
+                  type='text'
+                  placeholder={`Enter tag`}
+                  className='form-control'
+                />
+                {errors && errors['tag'] && (
+                  <span className='text-danger'>{errors['tag'].message}</span>
+                )}
+              </div>
+              <div className='mb-3'>
+                <label htmlFor='type'>Type</label>
+                <select
+                  {...register('type', { required: `Type is required` })}
+                  type='text'
+                  placeholder={`Enter type`}
+                  className='form-control'
+                >
+                  <option value=''>-------</option>
+                  <option value='public'>Public</option>
+                  <option value='private'>Private</option>
+                </select>
+                {errors && errors['type'] && (
+                  <span className='text-danger'>{errors['type'].message}</span>
+                )}
+              </div>
+
+              <div className='mb-3'>
+                <label htmlFor='content'>Content</label>
+                <textarea
+                  rows='5'
+                  cols='30'
+                  {...register('content', { required: `Content is required` })}
+                  type='text'
+                  placeholder={`Enter content}`}
+                  className='form-control'
+                />
+                {errors && errors['content'] && (
+                  <span className='text-danger'>
+                    {errors['content'].message}
+                  </span>
+                )}
+              </div>
+              <div className='btn-group form-control border-0 p-0 m-0'>
+                <button
+                  type='submit'
+                  className='btn btn-primary ms-1'
+                  disabled={isLoadingAdd || isLoadingUpdate}
+                >
+                  {isLoadingAdd || isLoadingUpdate ? (
+                    <span className='spinner-border spinner-border-sm' />
+                  ) : (
+                    'Submit'
+                  )}
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-success mx-1'
+                  onClick={() => reset()}
+                >
+                  Clear
+                </button>
+              </div>
             </form>
           </div>
           <div className='col-md-8 col-12'>

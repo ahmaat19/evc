@@ -1,14 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { FaPlus } from 'react-icons/fa'
 import Stories from '../components/feed/Stories'
-// import { stories } from '../utils/Stories'
 import axios from 'axios'
 
 export default function Home({ stories }) {
-  const router = useRouter()
-
   return (
     <>
       <Head>
@@ -33,7 +28,7 @@ export default function Home({ stories }) {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const { data } = await axios.get('http://localhost:3000/api/stories/get-all')
   return { props: { stories: data } }
 }

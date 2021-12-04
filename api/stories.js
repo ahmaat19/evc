@@ -2,8 +2,7 @@ import dynamicAPI from './dynamicAPI'
 
 const url = '/api/stories'
 
-export const getStories = async () =>
-  await dynamicAPI('get', `${url}/get-all`, {})
+export const getStories = async () => await dynamicAPI('get', `${url}/get`, {})
 
 export const addStory = async (obj) =>
   await dynamicAPI('post', `${url}/post`, obj)

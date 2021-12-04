@@ -7,6 +7,6 @@ const handler = nc()
 export default handler.get(async (req, res) => {
   const _id = req.query.id
   await db()
-  const stories = await Stories.findOne({ type: 'public' }, _id)
+  const stories = await Stories.findOne({ type: 'public', _id })
   res.status(200).json(stories)
 })

@@ -18,3 +18,9 @@ export const getUserStories = async (obj) =>
 
 export const getMyStories = async (obj) =>
   await dynamicAPI('get', `${url}/profile/${obj._id}`, {})
+
+export const updateStoryLike = async (obj) =>
+  await dynamicAPI('put', `${url}/like/${obj._id}`, {})
+
+export const getPublicStories = async () =>
+  await dynamicAPI('get', `${url}/get-all`, {})

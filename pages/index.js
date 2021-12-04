@@ -2,8 +2,16 @@ import Head from 'next/head'
 import { FaPlus } from 'react-icons/fa'
 import Stories from '../components/feed/Stories'
 import axios from 'axios'
+import { getPublicStories } from '../api/stories'
+import { useQuery } from 'react-query'
 
 export default function Home({ stories }) {
+  const { data } = useQuery('stories', () => getPublicStories(), {
+    initialData: stories,
+    retry: 0,
+    enabled: !!stories,
+  })
+
   return (
     <>
       <Head>
@@ -12,7 +20,7 @@ export default function Home({ stories }) {
       </Head>
 
       <main>
-        <Stories stories={stories} />
+        <Stories stories={data && data} />
       </main>
       {/* eslint-disable */}
       <a href='/profile/stories'>

@@ -10,10 +10,8 @@ import {
 } from 'react-icons/fa'
 import moment from 'moment'
 import axios from 'axios'
-import { useUser } from '@auth0/nextjs-auth0'
 
 const StoryDetails = ({ story }) => {
-  const { user } = useUser()
   return (
     <>
       <Link href='/'>
@@ -26,13 +24,16 @@ const StoryDetails = ({ story }) => {
       <div className='row'>
         <div className='col-lg-6 col-md-8 col-12 mx-auto'>
           <div className='card border-0 shadow'>
-            {user && story && user.email === story.email && (
-              <div className='position-relative'>
-                <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
-                  <FaTrash className='mb-1' />
-                </button>
-              </div>
-            )}
+            <div className='position-relative'>
+              <button
+                disabled={true}
+                className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
+                style={{ top: 0, right: '0%' }}
+              >
+                <FaThumbsUp className='mb-1' /> {story && story.like.length}
+              </button>
+            </div>
+
             <FaBookOpen className='card-img-top display-1 text-muted' />
             <div className='card-body text-center'>
               <h5 className='card-title fw-light'>{story && story.title}</h5>
@@ -62,15 +63,6 @@ const StoryDetails = ({ story }) => {
                 <span>
                   Since: {moment(story.createdAt).startOf('hour').fromNow()}
                 </span>
-              </div>
-              <div className='position-relative'>
-                <button
-                  disabled={!!!user}
-                  className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
-                  style={{ top: 0, right: '45%' }}
-                >
-                  <FaThumbsUp className='mb-1' /> {story && story.like}
-                </button>
               </div>
             </div>
           </div>

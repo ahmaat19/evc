@@ -5,8 +5,20 @@ import Link from 'next/link'
 import moment from 'moment'
 import { useUser } from '@auth0/nextjs-auth0'
 
+import { updateStoryLike } from '../../api/stories'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+
 const Story = ({ story }) => {
   const { user } = useUser()
+
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: updateMutateAsync } = useMutation(updateStoryLike, {
+    retry: 0,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['stories'])
+    },
+  })
 
   return (
     <div className='card shadow border-0'>
@@ -29,14 +41,15 @@ const Story = ({ story }) => {
           </Link>
         </h5>
         <div className='card-text'>
-          {story.tag.map((tag) => (
-            <div
-              key={tag}
-              className='badge bg-light text-secondary fw-light rounded-0 shadow-lg m-1'
-            >
-              #{tag}
-            </div>
-          ))}
+          {story &&
+            story.tag.map((tag) => (
+              <div
+                key={tag}
+                className='badge bg-light text-secondary fw-light rounded-0 shadow-lg m-1'
+              >
+                #{tag}
+              </div>
+            ))}
           <div className='card-text text-muted text-center fw-light mt-2'>
             <hr />
             <Image
@@ -57,10 +70,11 @@ const Story = ({ story }) => {
         <div className='position-relative'>
           <button
             disabled={!!!user}
+            onClick={() => updateMutateAsync(story && story)}
             className='btn btn-success btn-sm rounded-pill position-absolute shadow-lg animate__bounceIn'
             style={{ top: 0, right: '45%' }}
           >
-            <FaThumbsUp className='mb-1' /> {story.like}
+            <FaThumbsUp className='mb-1' /> {story.like.length}
           </button>
         </div>
       </div>

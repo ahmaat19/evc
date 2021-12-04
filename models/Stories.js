@@ -6,10 +6,10 @@ const storyScheme = mongoose.Schema(
     type: { type: String, required: true },
     tag: { type: [String], required: true },
     content: { type: String, required: true },
-    like: { type: Number, default: 0 },
-    email: { type: String, required: true, unique: true },
-    picture: { type: String, required: true },
-    name: { type: String, required: true },
+    like: [String],
+    email: { type: String },
+    picture: { type: String },
+    name: { type: String },
   },
   { timestamps: true }
 )

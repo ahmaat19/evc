@@ -260,7 +260,7 @@ const Stories = () => {
                         <tr key={story._id}>
                           <td>{story.title}</td>
                           <td>{story.type}</td>
-                          <td>{story.like}</td>
+                          <td>{story.like.length}</td>
 
                           {/* <td>
                               {course.isActive ? (

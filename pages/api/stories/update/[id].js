@@ -16,7 +16,7 @@ export default withApiAuthRequired(
       : req.body.tag
 
     await db()
-    const story = await Stories.findOne({ _id, user: session.user.email })
+    const story = await Stories.findOne({ _id, email: session.user.email })
     if (story) {
       story.title = title
       story.type = type

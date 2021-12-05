@@ -5,8 +5,8 @@ import Link from 'next/link'
 import moment from 'moment'
 import { useUser } from '@auth0/nextjs-auth0'
 
-import { updateStoryLike } from '../../api/stories'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { deleteStory, updateStoryLike } from '../../api/stories'
+import { useMutation, useQueryClient } from 'react-query'
 
 const Story = ({ story }) => {
   const { user } = useUser()
@@ -20,11 +20,24 @@ const Story = ({ story }) => {
     },
   })
 
+  const { mutateAsync: deleteMutateAsync } = useMutation(deleteStory, {
+    retry: 0,
+    onSuccess: () => queryClient.invalidateQueries(['stories']),
+  })
+
+  const deleteHandler = async (id) => {
+    window.confirm('Are you sure you want to delete this story?') &&
+      (await deleteMutateAsync(id))
+  }
+
   return (
     <div className='card shadow border-0'>
       {user && story && user.email === story.email && (
         <div className='position-relative'>
-          <button className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '>
+          <button
+            onClick={() => deleteHandler(story && story._id)}
+            className='btn btn-danger btn-sm rounded-pill position-absolute end-0 top-0 shadow-lg animate__bounceIn '
+          >
             <FaTrash className='mb-1' />
           </button>
         </div>
@@ -50,22 +63,27 @@ const Story = ({ story }) => {
                 #{tag}
               </div>
             ))}
-          <div className='card-text text-muted text-center fw-light mt-2'>
-            <hr />
-            <Image
-              src={story.picture}
-              alt={story.name}
-              width='30'
-              height='30'
-              className='rounded-pill'
-            />
-            <br />
-            {story.name} <br />
-            {story.email} <br />
-            <span>
-              Since: {moment(story.createdAt).startOf('hour').fromNow()}
-            </span>
-          </div>
+          <Link href={`/user/${story.email}`}>
+            <a>
+              <div className='card-text text-muted text-center fw-light mt-2'>
+                <hr />
+                <Image
+                  src={story.picture}
+                  alt={story.name}
+                  width='30'
+                  height='30'
+                  className='rounded-pill'
+                />
+                <br />
+                {story.name} <br />
+                {story.email} <br />
+                <span>
+                  Since:{' '}
+                  {moment(new Date(story.createdAt)).startOf('hour').fromNow()}
+                </span>
+              </div>
+            </a>
+          </Link>
         </div>
         <div className='position-relative'>
           <button

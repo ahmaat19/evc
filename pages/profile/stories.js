@@ -108,6 +108,11 @@ const Stories = () => {
     setValue('tag', story.tag)
   }
 
+  const deleteHandler = async (id) => {
+    window.confirm('Are you sure you want to delete this story?') &&
+      (await deleteMutateAsync(id))
+  }
+
   return (
     <div>
       <Link href='/'>
@@ -117,15 +122,10 @@ const Stories = () => {
           </button>
         </a>
       </Link>
-      <h6 className='text-center text-info'>
-        Create new story or Update existed story
-      </h6>
-
       <Head>
         <title>Stories</title>
         <meta property='og:title' content='Stories' key='title' />
       </Head>
-
       {isSuccessUpdate && (
         <Message variant='success'>
           Story has been updated successfully.
@@ -144,7 +144,6 @@ const Stories = () => {
         </Message>
       )}
       {isErrorDelete && <Message variant='danger'>{errorDelete}</Message>}
-
       {isLoading ? (
         <div className='text-center'>
           <Loader
@@ -278,20 +277,20 @@ const Stories = () => {
                               <FaEdit className='mb-1' /> Edit
                             </button>
 
-                            {/* <button
-                                className='btn btn-danger btn-sm'
-                                onClick={() => deleteHandler(story._id)}
-                                disabled={isLoadingDelete}
-                              >
-                                {isLoadingDelete ? (
-                                  <span className='spinner-border spinner-border-sm' />
-                                ) : (
-                                  <span>
-                                    {' '}
-                                    <FaTrash className='mb-1' /> Delete
-                                  </span>
-                                )}
-                              </button> */}
+                            <button
+                              className='btn btn-danger btn-sm'
+                              onClick={() => deleteHandler(story._id)}
+                              disabled={isLoadingDelete}
+                            >
+                              {isLoadingDelete ? (
+                                <span className='spinner-border spinner-border-sm' />
+                              ) : (
+                                <span>
+                                  {' '}
+                                  <FaTrash className='mb-1' /> Delete
+                                </span>
+                              )}
+                            </button>
                           </td>
                         </tr>
                       ))}

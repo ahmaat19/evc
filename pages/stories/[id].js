@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  FaTrash,
   FaBookOpen,
   FaArrowCircleLeft,
   FaThumbsUp,
@@ -10,6 +9,10 @@ import {
 } from 'react-icons/fa'
 import moment from 'moment'
 import axios from 'axios'
+
+import db from '../../utils/db'
+import Stories from '../../models/Stories'
+import convertDocToObj from '../../utils/convertDocToObj'
 
 const StoryDetails = ({ story }) => {
   return (
@@ -61,7 +64,8 @@ const StoryDetails = ({ story }) => {
                 {story.name} <br />
                 {story.email} <br />
                 <span>
-                  Since: {moment(story.createdAt).startOf('hour').fromNow()}
+                  Since:{' '}
+                  {moment(new Date(story.createdAt)).startOf('hour').fromNow()}
                 </span>
               </div>
             </div>
@@ -93,22 +97,29 @@ const StoryDetails = ({ story }) => {
 export default StoryDetails
 
 export const getStaticProps = async ({ params }) => {
-  const { data } = await axios.get(
-    `http://localhost:3000/api/stories/${params.id}`
-  )
+  await db()
+  const story = await Stories.findOne({
+    type: 'public',
+    _id: params.id,
+  }).lean()
+
   return {
     props: {
-      story: data,
+      story: convertDocToObj(story),
     },
+    revalidate: 10,
   }
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await axios.get(`http://localhost:3000/api/stories/get-all`)
-  const ids = data.map((d) => d._id)
+  await db()
+  const stories = await Stories.find({ type: 'public' }).lean()
+  const storyLists = stories.map(convertDocToObj)
+
+  const ids = storyLists.map((d) => d._id)
   const paths = ids.map((id) => ({ params: { id: id.toString() } }))
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }

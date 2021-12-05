@@ -35,7 +35,7 @@ const Navigation = () => {
                 </a>
               </Link>
             </li>
-
+            {/* eslint-disable */}
             <li className='nav-item'>
               {user ? (
                 <a
@@ -55,6 +55,7 @@ const Navigation = () => {
                 </a>
               )}
             </li>
+            {/* eslint-enable */}
           </ul>
         </div>
       </div>

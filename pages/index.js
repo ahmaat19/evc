@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import { FaPlus } from 'react-icons/fa'
-import Stories from '../components/feed/Stories'
-import axios from 'axios'
+import ComponentStories from '../components/feed/Stories'
 import { getPublicStories } from '../api/stories'
 import { useQuery } from 'react-query'
+import db from '../utils/db'
+import Stories from '../models/Stories'
+import convertDocToObj from '../utils/convertDocToObj'
 
 export default function Home({ stories }) {
   const { data } = useQuery('stories', () => getPublicStories(), {
@@ -20,7 +22,7 @@ export default function Home({ stories }) {
       </Head>
 
       <main>
-        <Stories stories={data && data} />
+        <ComponentStories stories={data && data} />
       </main>
       {/* eslint-disable */}
       <a href='/profile/stories'>
@@ -37,6 +39,7 @@ export default function Home({ stories }) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get('http://localhost:3000/api/stories/get-all')
-  return { props: { stories: data } }
+  await db()
+  const stories = await Stories.find({ type: 'public' }).lean()
+  return { props: { stories: stories.map(convertDocToObj) } }
 }

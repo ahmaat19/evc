@@ -32,6 +32,7 @@ const Story = ({ story }) => {
 
   return (
     <div className='card shadow border-0'>
+      {console.log(user && user)}
       {user && story && user.email === story.email && (
         <div className='position-relative'>
           <button
